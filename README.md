@@ -18,7 +18,7 @@ El sistema proporciona una fuente de iluminación controlada y reproducible, per
 
 ### 🎯 Alcances del Proyecto (¿Qué hace y qué NO hace el sistema?)
 Delimiten claramente los objetivos alcanzados para la entrega final:
-* **El sistema SÍ es capaz de:** [Ej: Medir temperatura y presión en tiempo real, activar un cooler si se supera el umbral y transmitir los datos por UART cada 1 segundo].
+* **El sistema SÍ es capaz de:** Medir intensidad luminica mediante un fotoresisteor (LDR) conectado a una entrada analogica del PIC16F887.
 * **El sistema NO incluye (Fuera de alcance):** [Ej: Almacenamiento local de datos (Data Logging) en tarjeta SD ni conectividad inalámbrica Wi-Fi/Bluetooth].
 
 ### ⏩ Posibles Etapas Siguientes (Líneas Futuras)
