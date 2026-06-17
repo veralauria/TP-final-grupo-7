@@ -1,15 +1,14 @@
-# TPfinal
-grupo 7
 
-# [Nombre del Proyecto / Sistema]
-> **Asignatura:** Electrónica Digital [II / III] - Universidad Nacional de Córdoba
-> **Integrantes:** > * Nombre Apellido
-> * Nombre Apellido
-> **Profesor:** [Nombre del Profesor]
+# [Lampara patron modulada por PWM para verificar funcionamiento de sensor fotorresistor]
+> **Asignatura:** Electrónica Digital II- - Universidad Nacional de Córdoba
+> **Integrantes:** > * Cometta Julian
+> * Lauria Vera
+>  * Pappalardo Dunger Francia
+> **Profesor:** Ing Blasco Marcos
 
 ---
 
-## 🚀 1. Descripción General del Proyecto (Común a DII y DIII)
+##  1. Descripción General del Proyecto 
 Expliquen, en un máximo de dos párrafos, **qué hace el sistema, qué problema resuelve y a quién va dirigido**. Sean claros, concisos y directos.
 
 ### 🎯 Alcances del Proyecto (¿Qué hace y qué NO hace el sistema?)
@@ -42,18 +41,18 @@ Planteen cómo escalaría este desarrollo en una versión 2.0 o en un ámbito pr
 ## ⚡ 3. Especificaciones Eléctricas, Alimentación y Entorno (Específico por Asignatura)
 
 ### 🔌 Parámetros de Alimentación y Consumo (Común a ambas materias)
-* **Tensión de operación del sistema:** [Ej: 5V / 3.3V]
-* **Método de alimentación:** [Ej: Fuente externa de 12V con regulador lineal LM7805 / Alimentación por USB]
+* **Tensión de operación del sistema:** 5V por USB
+* **Método de alimentación:**  Fuente externa de 12V 
 * **Consumo estimado o medido:** * En modo activo (máxima carga, relés/motores encendidos): `XX mA`
   * En modo bajo consumo (si aplica): `XX uA`
 
 ### 📌 [OPCIÓN A: Solo para alumnos de Electrónica Digital II (PIC16F887)]
 * **Herramientas de Software:** MPLAB X IDE [vX.XX] y compilador XC8 [vX.XX].
-* **Hardware de Programación/Depuración:** [Ej: PICkit 3, PICkit 4].
+* **Hardware de Programación/Depuración:** PICkit 3
 * **Configuración de Bits (Fuses Críticos):**
-  * *Oscilador:* [Ej: HS (Cristal externo de 20MHz) / INTRC (Interno 4MHz)]
-  * *Watchdog Timer (WDT):* [Ej: ON / OFF]
-  * *Master Clear (MCLRE):* [Ej: ON (Pin externo) / OFF (Digital IO)]
+  * *Oscilador:* HS Cristal externo de 4 MHz) 
+  * *Watchdog Timer (WDT):* OFF
+  * *Master Clear (MCLRE):* ON (Pin externo con pull up) 
 * **Periféricos Internos Utilizados:** [Ej: Timer0, ADC, EUSART, PWM].
 * **Gestión de Interrupciones:** Al contar con un único vector de interrupción, expliquen la prioridad por software (*polling*) en la ISR: ¿Qué bandera (`flag`) evalúan primero y por qué?
 
