@@ -1,7 +1,8 @@
 
 # Lampara patron modulada por PWM para verificar funcionamiento de sensor fotorresistor
 > **Asignatura:** Electrónica Digital II- - Universidad Nacional de Córdoba
-> **Integrantes:** > * Cometta Julian
+> **Integrantes:**
+> * Cometta Julian
 > * Lauria Vera
 >  * Pappalardo Dunger Francia
 > **Profesor:** Ing Blasco Marcos
