@@ -102,7 +102,7 @@ Imagen 2: Circuito en PCB
   * *Watchdog Timer (WDT):* OFF
   * *Master Clear (MCLRE):* ON (Pin externo con pull up) 
 * **Periféricos Internos Utilizados:** Timer0, ADC, EUSART, PWM, Timer2
-* **Gestión de Interrupciones:** Al contar con un único vector de interrupción, se le da prioridad a la interrupcion externa en la ISR, evaluando primero su bandera, INTF. Ya que si se presiono el pulsador, es necesario apagar la lampara inmediatamente, y luego actualizar el display, ya que el valor que se muestre no sera el mismo que antes del pulsador (debe ser 000).
+* **Gestión de Interrupciones:** Se prioriza la atencion de la interrupcion de Timer0 debido a que es la encargada del multiplexado de los displays de 7 segmentos. Esta interrupcion ocurre periodicamente y requiere una ejecucion constante para evitar parpadeos o errores de visualizacion. En cambio, la interrupcion externa por RB0 corresponde a la pulsacion de un boton, un evento poco frecuente y menos critico. Por este motivo, se verifica primero la bandera de Timer0 (T0IF) y luego la de la interrupcion externa (INTF).
 
 ---
 
