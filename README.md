@@ -61,9 +61,10 @@ Planteen cómo escalaría este desarrollo en una versión 2.0 o en un ámbito pr
 <img width="960" height="1280" alt="WhatsApp Image 2026-06-17 at 20 55 24" src="https://github.com/user-attachments/assets/570ad473-ae50-4e7a-9449-8eaeaaee774d" />
 
 * Imagen 1: Circuito en protoboard
-*<img width="1041" height="1280" alt="image" src="https://github.com/user-attachments/assets/6428cdef-92b3-419c-8ef8-73609a0f4110" />
+<img width="1041" height="1280" alt="image" src="https://github.com/user-attachments/assets/6428cdef-92b3-419c-8ef8-73609a0f4110" />
+
 * Imagen 2: Circuito en PCB
-* 
+  
 
 ### 💻 Arquitectura de Software (Firmware)
 * **Diagrama de Flujo o Máquina de Estados:** *[Inserte aquí la imagen del diagrama que explique el lazo principal o el comportamiento del sistema]*
