@@ -19,7 +19,12 @@ El sistema proporciona una fuente de iluminación controlada y reproducible, per
 ### 🎯 Alcances del Proyecto (¿Qué hace y qué NO hace el sistema?)
 Delimiten claramente los objetivos alcanzados para la entrega final:
 * **El sistema SÍ es capaz de:** Medir intensidad luminica mediante un fotoresisteor (LDR) conectado a una entrada analogica del PIC16F887.
-* **El sistema NO incluye (Fuera de alcance):** [Ej: Almacenamiento local de datos (Data Logging) en tarjeta SD ni conectividad inalámbrica Wi-Fi/Bluetooth].
+* Variar la intensidad de una lampara LED de 12 V por PWM.
+* Recibir los datos sensados en la PC mediante UART.
+* Graficar los datos de luminosidad obtenidos.
+* Prender y apagar la lampara a traves de un pulsador.
+* Mostrar los valores convertidos por el ADC en decimal en un display 7 segmentos.
+* **El sistema NO incluye (Fuera de alcance):** Conversion de los valores sensados a Lux.
 
 ### ⏩ Posibles Etapas Siguientes (Líneas Futuras)
 Planteen cómo escalaría este desarrollo en una versión 2.0 o en un ámbito profesional:
@@ -35,7 +40,27 @@ Planteen cómo escalaría este desarrollo en una versión 2.0 o en un ámbito pr
 * **Diagrama de Bloques:** [Insertar imagen o link al diagrama de bloques del hardware]
 * **Esquemático del Circuito:** *[Inserte aquí la captura de imagen/render del esquemático completo desarrollado en KiCad/Altium]*
   `![Esquemático Completo](hardware/esquematico.png)`
-* **Descripción del Circuito y Consideraciones de Diseño:** Breve explicación de las etapas (ej: acoplamiento de señales, protecciones inductivas, filtrado, etc.).
+* **Descripción del Circuito y Consideraciones de Diseño:**
+*El sistema se implementa sobre una protoboard y aparte una PCB que integra la lámpara de potencia y el sensor LDR, alojados dentro de una caja negra para minimizar la incidencia de luz externa y las reflexiones, garantizando condiciones de medición más controladas.
+
+*El microcontrolador PIC16F887 se alimenta con +5 V y GND mediante una placa Arduino utilizada como fuente de alimentación.
+
+*Se conecta un display de 7 segmentos al puerto D del PIC mediante resistencias de 220 Ω. La multiplexación de los tres dígitos se realiza desde el puerto A utilizando tres transistores NPN para su conmutación.
+
+*El módulo UART se conecta a los pines RC6 (TX) y RC7 (RX). El sensor LDR se conecta a la entrada analógica AN0 (RA0), mientras que el pulsador se conecta al pin RB0 para generar una interrupción externa por flanco descendente.
+
+*El oscilador externo de 4 MHz se conecta a los pines RA6 (OSC2) y RA7 (OSC1). El pin MCLR se polariza mediante una resistencia pull-up de 10 kΩ conectada a +5 V.
+
+*El control de la lámpara de 12 V se realiza mediante un MOSFET de canal N. El pin RC2/CCP1 del PIC se conecta a través de una resistencia de 220 Ω a la compuerta (Gate) del MOSFET para aplicar la señal PWM. Tambien se conecta a la compuerta una resistencia pull-down de 10k ohms. El terminal Drain se conecta al negativo de la lámpara y el Source se conecta directamente a tierra. El terminal positivo de la lámpara se alimenta mediante una fuente externa de 12 V.
+
+Consideraciones de diseño: Para el conexionado de las señales y de la alimentación de baja corriente se utilizaron conductores sólidos individuales extraídos de un cable UTP. En cambio, la alimentación de la lámpara LED de 12 V se realizó mediante un cable multifilar de mayor sección.
+
+<img width="960" height="1280" alt="WhatsApp Image 2026-06-17 at 20 55 24" src="https://github.com/user-attachments/assets/570ad473-ae50-4e7a-9449-8eaeaaee774d" />
+
+* Imagen 1: Circuito en protoboard
+*<img width="1041" height="1280" alt="image" src="https://github.com/user-attachments/assets/6428cdef-92b3-419c-8ef8-73609a0f4110" />
+* Imagen 2: Circuito en PCB
+* 
 
 ### 💻 Arquitectura de Software (Firmware)
 * **Diagrama de Flujo o Máquina de Estados:** *[Inserte aquí la imagen del diagrama que explique el lazo principal o el comportamiento del sistema]*
