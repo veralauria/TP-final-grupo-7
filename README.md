@@ -40,7 +40,9 @@ El sistema proporciona una fuente de iluminación controlada y reproducible, per
 ## 📐 2. Arquitectura del Sistema: Hardware y Software
 
 ### 🔌 Hardware & Interconexión
-* **Diagrama de Bloques:** 
+* **Diagrama de Bloques:**
+<img width="532" height="421" alt="diagrama_bloques drawio" src="https://github.com/user-attachments/assets/dd23cbcf-c899-4957-87a6-83031eec5cf4" />
+
 * **Esquemático del Circuito:**
  <img width="1600" height="1070" alt="image" src="https://github.com/user-attachments/assets/0d50c731-2800-4c24-bdcc-3e50f9ebe884" />
 
