@@ -21,7 +21,8 @@ El sistema proporciona una fuente de iluminación controlada y reproducible, per
 * **El sistema SÍ es capaz de:**
 * Medir intensidad luminica mediante un fotoresisteor (LDR) conectado a una entrada analogica del PIC16F887.
 * Variar la intensidad de una lampara LED de 12 V por PWM.
-* Recibir los datos sensados en la PC mediante UART.
+* Recibir los datos sensados y convertidos a digital en la PC mediante UART.
+* Convertir los datos recibidos a porcentaje de iluminacion.
 * Graficar los datos de luminosidad obtenidos.
 * Prender y apagar la lampara a traves de un pulsador.
 * Mostrar los valores convertidos por el ADC en decimal en un display 7 segmentos.
@@ -55,7 +56,7 @@ Planteen cómo escalaría este desarrollo en una versión 2.0 o en un ámbito pr
 
 * El control de la lámpara de 12 V se realiza mediante un MOSFET de canal N. El pin RC2/CCP1 del PIC se conecta a través de una resistencia de 220 Ω a la compuerta (Gate) del MOSFET para aplicar la señal PWM. Tambien se conecta a la compuerta una resistencia pull-down de 10k ohms. El terminal Drain se conecta al negativo de la lámpara y el Source se conecta directamente a tierra. El terminal positivo de la lámpara se alimenta mediante una fuente externa de 12 V.
 
-**Consideraciones de diseño:**  Para el conexionado de las señales y de la alimentación de baja corriente se utilizaron conductores sólidos individuales extraídos de un cable UTP. En cambio, la alimentación de la lámpara LED de 12 V se realizó mediante un cable multifilar de mayor sección.
+**Consideraciones de diseño:**  Para el conexionado de las señales y de la alimentación de baja corriente se utilizaron conductores sólidos individuales extraídos de un cable UTP y jumpers. En cambio, la alimentación de la lámpara LED de 12 V se realizó mediante un cable multifilar de mayor sección.
 
 <img width="960" height="1280" alt="WhatsApp Image 2026-06-17 at 20 55 24" src="https://github.com/user-attachments/assets/570ad473-ae50-4e7a-9449-8eaeaaee774d" />
 
@@ -70,53 +71,57 @@ Planteen cómo escalaría este desarrollo en una versión 2.0 o en un ámbito pr
 
 ---
 
-## ⚡ 3. Especificaciones Eléctricas, Alimentación y Entorno (Específico por Asignatura)
+## ⚡ 3. Especificaciones Eléctricas, Alimentación y Entorno 
 
-### 🔌 Parámetros de Alimentación y Consumo (Común a ambas materias)
+### 🔌 Parámetros de Alimentación y Consumo 
 * **Tensión de operación del sistema:** 5V por USB
 * **Método de alimentación:**  Fuente externa de 12V 
-* **Consumo estimado o medido:** * En modo activo (máxima carga, relés/motores encendidos): `XX mA`
-  * En modo bajo consumo (si aplica): `XX uA`
+
+
 
 ### 📌 [OPCIÓN A: Solo para alumnos de Electrónica Digital II (PIC16F887)]
-* **Herramientas de Software:** MPLAB X IDE [vX.XX] y compilador XC8 [vX.XX].
+* **Herramientas de Software:** MPLAB X IDE [v5.35] 
 * **Hardware de Programación/Depuración:** PICkit 3
 * **Configuración de Bits (Fuses Críticos):**
-  * *Oscilador:* HS Cristal externo de 4 MHz) 
+  * *Oscilador:*  Cristal externo de 4 MHz
   * *Watchdog Timer (WDT):* OFF
   * *Master Clear (MCLRE):* ON (Pin externo con pull up) 
-* **Periféricos Internos Utilizados:** [Ej: Timer0, ADC, EUSART, PWM].
-* **Gestión de Interrupciones:** Al contar con un único vector de interrupción, expliquen la prioridad por software (*polling*) en la ISR: ¿Qué bandera (`flag`) evalúan primero y por qué?
-
-### 📌 [OPCIÓN B: Solo para alumnos de Electrónica Digital III (Cortex-M / ARM)]
-* **IDE y SDK:** [Ej: MCUXpresso IDE v11.8 con LPCOpen v2.10 / STM32CubeIDE v1.14 con HAL v1.28].
-* **Microcontrolador Principal:** [Ej: NXP LPC1769 / STM32F411].
-* **Bibliotecas de Terceros y Versiones:** [Ej: FreeRTOS v10.5.1 / Biblioteca LCD I2C v1.2].
-* **Periféricos Avanzados Utilizados:** [Ej: NVIC, DMA, SysTick, DAC].
-* **Estrategia de Concurrencia:** Expliquen la arquitectura elegida: [Ej: Bare-metal con máquina de estados cooperativa / RTOS (FreeRTOS) detallando las tareas creadas y sus prioridades].
+* **Periféricos Internos Utilizados:** Timer0, ADC, EUSART, PWM, Timer2
+* **Gestión de Interrupciones:** Al contar con un único vector de interrupción, se le da prioridad a la interrupcion externa en la ISR, evaluando primero su bandera, INTF. Ya que si se presiono el pulsador, es necesario apagar la lampara inmediatamente, y luego actualizar el display, ya que el valor que se muestre no sera el mismo que antes del pulsador (debe ser 000).
 
 ---
 
-## 🔄 4. Proceso de Integración y Desarrollo (Común)
-Describan cronológicamente cómo fueron sumando y testeando las diferentes partes del proyecto (enfoque modular de ingeniería).
+## 🔄 4. Proceso de Integración y Desarrollo
 
-* **Etapa 1 (Validación inicial):** [Ej: Configuración del oscilador/reloj y parpadeo de LED de estado].
-* **Etapa 2 (Adquisición/Comunicación):** [Ej: Implementación del ADC y envío de tramas crudas por UART].
-* **Etapa 3 (Integración lógica):** [Ej: Procesamiento de datos, lógica de control o montado sobre el RTOS].
-* **Etapa 4 (Sistema Completo):** [Ej: Acople de actuadores finales, calibración y pruebas de estrés].
+* **Etapa 1 (Sensor):** Conexion del sensor y verificacion de su funcionamiento, observando los valores convertidos por el ADC en el display.
+* **Etapa 2 (Transmicion correcta de datos):** Conexion de UART y control de los datos recibidos en la aplicacion web. 
+* **Etapa 3 (Envio de datos por UART):** Conexion de un LED rojo a en CCP1 para verivicar el funcionamiento correcto de PWM con los datos enviados mediante UART por la aplicacion web. Hasta este punto, no se utilizó fuente externa de 12 V.
+* **Etapa 4 (Etapa de potencia):**  Conexion del MOSFET a CCP1 y lampara LED de potencia, utilizando fuente externa de 12 V, verificacion de su variacion en intensidad por PWM y correcto sensado del LDR.
+* **Etapa 5 (Sistema completo):**  Implementacion de la caja con interior pintado de negro para eliminar las fuentes de luz que no sean la lampara de potencia y disminuir la reflexion en las superficies de la caja, para que no influya en el valor de intensidad sensado.
+  
+
+  
 
 ---
 
-## 📊 5. Ensayos, Pruebas y Resultados (Común)
+## 📊 5. Ensayos, Pruebas y Resultados
 Demuestren con datos empíricos que el sistema funciona correctamente. **Es obligatorio incluir registro visual**.
 
 * **Pruebas Funcionales Realizadas:** Detallen los ensayos (Ej: "Se inyectó una señal controlada para medir la precisión del ADC...").
-* **Evidencia Fotográfica y Gráficos:** * *Capturas de instrumental:* [Insertar capturas de Osciloscopio, Analizador Lógico o Terminal Serie]
+* **Evidencia Fotográfica y Gráficos:** 
   * *Foto del Prototipo Real:* [Insertar foto del hardware final cableado/armado en funcionamiento]
+<img width="1082" height="902" alt="image" src="https://github.com/user-attachments/assets/cf38ab47-f099-4503-89d9-307ad1e4c100" />
+Imagen 3: Sistema en funcionamiento, datos recibidos en aplicacion web.
+<img width="1206" height="1323" alt="image" src="https://github.com/user-attachments/assets/f6fc22e0-f618-43d0-94e8-6cad943ea91d" />
+Imagen 4: Sistema en funcionamiento, circuito
+
+El prototipo real es (cableado) de la protoboard y la PCB se aprecia en las imagenes 1 y 2 respectivamente.
+
+
 
 ---
 
-## 📂 6. Estructura del Repositorio (Común)
+## 📂 6. Estructura del Repositorio 
 El repositorio debe mantener obligatoriamente la siguiente estructura limpia (¡Recuerden configurar correctamente el `.gitignore` para no subir carpetas temporales como `Debug/`, `Release/` o archivos `.p1` / `.d`!).
 
 ```text
