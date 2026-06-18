@@ -37,7 +37,7 @@ Planteen cómo escalaría este desarrollo en una versión 2.0 o en un ámbito pr
 
 ---
 
-## 📐 2. Arquitectura del Sistema: Hardware y Software (Común)
+## 📐 2. Arquitectura del Sistema: Hardware y Software
 
 ### 🔌 Hardware & Interconexión
 * **Diagrama de Bloques:** [Insertar imagen o link al diagrama de bloques del hardware]
